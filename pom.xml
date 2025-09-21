@@ -26,14 +26,14 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git@github.com:jiaqi/jmxterm.git</connection>
-    <developerConnection>scm:git:git@github.com:jiaqi/jmxterm.git</developerConnection>
-    <url>git@github.com:jiaqi/jmxterm.git</url>
+    <connection>scm:git:git@github.com:LeMyst/jmxterm.git</connection>
+    <developerConnection>scm:git:git@github.com:LeMyst/jmxterm.git</developerConnection>
+    <url>git@github.com:LeMyst/jmxterm.git</url>
   </scm>
 
   <issueManagement>
     <system>github</system>
-    <url>https://github.com/jiaqi/jmxterm/issues</url>
+    <url>https://github.com/LeMyst/jmxterm/issues</url>
   </issueManagement>
 
   <ciManagement>
