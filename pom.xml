@@ -3,12 +3,7 @@
 
   <modelVersion>4.0.0</modelVersion>
 
-  <parent>
-    <groupId>org.cyclopsgroup</groupId>
-    <artifactId>cyclopsgroup-java-parent</artifactId>
-    <version>0.7.2</version>
-  </parent>
-
+  <groupId>org.cyclopsgroup</groupId>
   <artifactId>jmxterm</artifactId>
   <version>1.0.10-lemyst</version>
   <packaging>jar</packaging>
@@ -26,9 +21,9 @@
   </licenses>
 
   <scm>
-    <connection>scm:git:git@github.com:LeMyst/jmxterm.git</connection>
+    <connection>scm:git:https://github.com/LeMyst/jmxterm.git</connection>
     <developerConnection>scm:git:git@github.com:LeMyst/jmxterm.git</developerConnection>
-    <url>git@github.com:LeMyst/jmxterm.git</url>
+    <url>https://github.com/LeMyst/jmxterm</url>
   </scm>
 
   <issueManagement>
@@ -50,13 +45,11 @@
         <enabled>false</enabled>
       </snapshots>
     </repository>
-    <site>
-      <id>cyclopsgroup.server</id>
-      <url>s3://${dist.bucketName}/projects/jmxterm</url>
-    </site>
   </distributionManagement>
 
   <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
     <!-- Third-party dependencies -->
     <slf4j.version>2.0.17</slf4j.version>
     <commons-beanutils.version>1.11.0</commons-beanutils.version>
@@ -80,6 +73,7 @@
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
+    <maven-compiler-plugin.version>3.14.0</maven-compiler-plugin.version>
     <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.11.3</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
@@ -239,6 +233,14 @@
     </pluginManagement>
 
     <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>${maven-compiler-plugin.version}</version>
+        <configuration>
+          <release>17</release>
+        </configuration>
+      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-jar-plugin</artifactId>
