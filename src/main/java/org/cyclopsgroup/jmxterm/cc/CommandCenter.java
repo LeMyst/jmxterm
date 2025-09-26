@@ -159,7 +159,8 @@ public class CommandCenter {
     lock.lock();
     try {
       cmd.execute();
-    } finally {
+    }
+    finally {
       lock.unlock();
     }
   }
