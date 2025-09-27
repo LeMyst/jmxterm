@@ -38,7 +38,7 @@ public class Jdk9JavaProcessManager extends JavaProcessManager {
     for (VirtualMachineDescriptor vmd : vmDescriptors) {
       VirtualMachine vm = null;
       try {
-        vm = VirtualMachine.attach(vmd.id());
+        vm = VirtualMachine.attach(vmd);
         Properties agentProps = vm.getAgentProperties();
         String address = agentProps.getProperty(LOCAL_CONNECTOR_ADDRESS_PROP);
         javaProcesses.add(new Jdk9JavaProcess(vmd, address));

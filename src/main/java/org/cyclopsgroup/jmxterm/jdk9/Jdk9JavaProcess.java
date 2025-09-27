@@ -47,7 +47,7 @@ public class Jdk9JavaProcess implements JavaProcess {
   @Override
   public void startManagementAgent() throws IOException {
     try {
-      VirtualMachine.attach(vmd.id()).startLocalManagementAgent();
+      VirtualMachine.attach(vmd).startLocalManagementAgent();
     } catch (SecurityException | AttachNotSupportedException e) {
       throw new IllegalStateException("Cannot start management agent on VM", e);
     }

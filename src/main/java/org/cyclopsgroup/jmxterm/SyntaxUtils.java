@@ -37,10 +37,8 @@ public final class SyntaxUtils {
     if (StringUtils.isEmpty(url)) {
       throw new IllegalArgumentException("Empty URL is not allowed");
     } else if (NumberUtils.isDigits(url) && jpm != null) {
-      Integer pid = Integer.parseInt(url);
-      JavaProcess p;
-
-      p = jpm.get(pid);
+      int pid = Integer.parseInt(url);
+      JavaProcess p = jpm.get(pid);
       if (p == null) {
         throw new NullPointerException("No such PID " + pid);
       }
