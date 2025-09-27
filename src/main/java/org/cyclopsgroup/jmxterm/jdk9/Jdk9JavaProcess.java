@@ -24,7 +24,6 @@ public class Jdk9JavaProcess implements JavaProcess {
    * @param address Connector address, if any
    */
   Jdk9JavaProcess(VirtualMachineDescriptor vmd, String address) {
-    Validate.notNull(vmd, "StaticVirtualMachine can't be NULL");
     Validate.notNull(vmd, "VirtualMachineDescriptor can't be NULL");
     this.vmd = vmd;
     this.address = address;

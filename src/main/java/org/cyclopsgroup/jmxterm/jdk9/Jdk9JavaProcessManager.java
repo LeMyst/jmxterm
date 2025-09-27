@@ -45,8 +45,7 @@ public class Jdk9JavaProcessManager extends JavaProcessManager {
       } catch (AttachNotSupportedException | IOException e) {
         // could not attach or some other exception
         javaProcesses.add(new Jdk9JavaProcess(vmd, null));
-      }
-      finally {
+      } finally {
         if (vm != null) {
           try {
             vm.detach();
