@@ -49,7 +49,7 @@ public class Jdk9JavaProcess implements JavaProcess {
     try {
       VirtualMachine.attach(vmd).startLocalManagementAgent();
     } catch (SecurityException | AttachNotSupportedException e) {
-      throw new IllegalStateException("Cannot start management agent on VM", e);
+      throw new IllegalStateException("Cannot start management agent on VM with pid " + vmd.id(), e);
     }
   }
 

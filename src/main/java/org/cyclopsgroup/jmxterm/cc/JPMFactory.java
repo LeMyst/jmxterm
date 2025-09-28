@@ -12,7 +12,7 @@ public final class JPMFactory {
 
   /** Default constructor that figures out an implementation of JPM */
   private JPMFactory() {
-    throw new AssertionError("Not instantiable");
+    throw new UnsupportedOperationException("Not instantiable");
   }
 
   /** @return Java process manager instance */

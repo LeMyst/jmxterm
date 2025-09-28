@@ -50,7 +50,7 @@ public class Jdk9JavaProcessManager extends JavaProcessManager {
           try {
             vm.detach();
           } catch (IOException e) {
-            // Could not detach, ignore
+            // Could not detach from the VM, ignoring as we cannot do anything about it
           }
         }
       }
