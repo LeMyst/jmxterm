@@ -39,7 +39,7 @@ public class HelpCommand extends Command {
         Class<? extends Command> commandType = commandCenter.getCommandType(commandName);
         org.cyclopsgroup.jcli.spi.Cli cli =
             ArgumentProcessor.forType(commandType).createParsingContext().cli();
-        getSession().output.println(String.format("%-8s - %s", commandName, cli.getDescription()));
+        getSession().output.println("%-8s - %s".formatted(commandName, cli.getDescription()));
       }
     } else {
       for (String argName : argNames) {

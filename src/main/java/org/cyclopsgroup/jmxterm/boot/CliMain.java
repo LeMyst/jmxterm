@@ -111,8 +111,8 @@ public class CliMain {
       }
       try {
         CommandCenter commandCenter = new CommandCenter(output, input);
-        if (input instanceof JlineCommandInput) {
-          ((JlineCommandInput) input)
+        if (input instanceof JlineCommandInput commandInput) {
+          commandInput
               .getConsole()
               .setCompleter(new ConsoleCompletor(commandCenter));
         }

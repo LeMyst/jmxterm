@@ -5,11 +5,14 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 import javax.management.RuntimeMBeanException;
+import javax.management.openmbean.CompositeDataSupport;
+
 import org.apache.commons.collections4.map.ListOrderedMap;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
@@ -96,12 +99,8 @@ public class GetCommand extends Command {
               "Could not get attribute " + attributeNameToRequest + ": " + e.getMessage());
         }
 
-        if (result instanceof javax.management.openmbean.CompositeDataSupport) {
-          if (attributeNameElements.length > 1) {
-            result =
-                ((javax.management.openmbean.CompositeDataSupport) result)
-                    .get(attributeNameElements[1]);
-          }
+        if (result instanceof CompositeDataSupport support && attributeNameElements.length > 1) {
+            result = support.get(attributeNameElements[1]);
         }
 
         if (simpleFormat) {
@@ -109,7 +108,7 @@ public class GetCommand extends Command {
         } else if (completeLine) {
           format.printValue(
               session.output,
-              String.format("mbean = %s # %s = %s", beanName, attributeName, result));
+              "mbean = %s # %s = %s".formatted(beanName, attributeName, result));
         } else {
           format.printExpression(session.output, attributeName, result, i.getDescription());
         }

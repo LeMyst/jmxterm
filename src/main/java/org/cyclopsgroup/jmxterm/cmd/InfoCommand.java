@@ -7,6 +7,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
+
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanFeatureInfo;
@@ -16,6 +17,7 @@ import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.CompareToBuilder;
@@ -34,15 +36,10 @@ import org.cyclopsgroup.jmxterm.Session;
     description = "Display detail information about an MBean",
     note = "If -b option is not specified, current selected MBean is applied")
 public class InfoCommand extends Command {
-  private static final Comparator<MBeanFeatureInfo> INFO_COMPARATOR =
-      new Comparator<MBeanFeatureInfo>() {
-        public int compare(MBeanFeatureInfo o1, MBeanFeatureInfo o2) {
-          return new CompareToBuilder()
-              .append(o1.getName(), o2.getName())
-              .append(o1.hashCode(), o2.hashCode())
-              .toComparison();
-        }
-      };
+  private static final Comparator<MBeanFeatureInfo> INFO_COMPARATOR = (o1, o2) -> new CompareToBuilder()
+      .append(o1.getName(), o2.getName())
+      .append(o1.hashCode(), o2.hashCode())
+      .toComparison();
 
   private static final String TEXT_ATTRIBUTES = "# attributes";
 
@@ -167,8 +164,7 @@ public class InfoCommand extends Command {
           paramTypes.add(paramInfo.getType() + " " + parameter);
         }
         session.output.println(
-            String.format(
-                "  %%%-3d - %s %s(%s), %s",
+            "  %%%-3d - %s %s(%s), %s".formatted(
                 index++,
                 op.getReturnType(),
                 opName,
@@ -179,7 +175,7 @@ public class InfoCommand extends Command {
     }
     if (!found) {
       session.output.printMessage(
-          String.format("The operation '%s' is not found in the bean.", operation));
+          "The operation '%s' is not found in the bean.".formatted(operation));
     }
   }
 

@@ -142,8 +142,8 @@ public class CommandCenter {
   private void doExecute(String commandName, String[] commandArgs, String originalCommand)
       throws JMException, IOException {
     Command cmd = commandFactory.createCommand(commandName);
-    if (cmd instanceof HelpCommand) {
-      ((HelpCommand) cmd).setCommandCenter(this);
+    if (cmd instanceof HelpCommand command) {
+      command.setCommandCenter(this);
     }
     ArgumentProcessor<Command> ap =
         (ArgumentProcessor<Command>) ArgumentProcessor.forType(cmd.getClass());

@@ -132,8 +132,7 @@ public class RunCommand extends Command {
     MBeanParameterInfo[] paramInfos = operationInfo.getSignature();
     Validate.isTrue(
         params.length == paramInfos.length,
-        String.format(
-            "%d parameters are expected but %d are provided", paramInfos.length, params.length));
+        "%d parameters are expected but %d are provided".formatted(paramInfos.length, params.length));
     String[] signatures = new String[paramInfos.length];
     for (int i = 0; i < paramInfos.length; i++) {
       MBeanParameterInfo paramInfo = paramInfos[i];
@@ -146,8 +145,7 @@ public class RunCommand extends Command {
       signatures[i] = paramInfo.getType();
     }
     session.output.printMessage(
-        String.format(
-            "calling operation %s of mbean %s with params %s",
+        "calling operation %s of mbean %s with params %s".formatted(
             operationName, beanName, Arrays.toString(params)));
 
     // Invoke operation, record execution time if measure flag is on

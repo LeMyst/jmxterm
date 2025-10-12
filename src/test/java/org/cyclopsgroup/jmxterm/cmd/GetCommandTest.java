@@ -80,8 +80,8 @@ public class GetCommandTest {
 
       Object nestedExpectedValue = expectedValue;
 
-      if (expectedValue instanceof CompositeDataSupport) {
-        nestedExpectedValue = ((CompositeDataSupport) expectedValue).get(attributePath[1]);
+      if (expectedValue instanceof CompositeDataSupport support) {
+        nestedExpectedValue = support.get(attributePath[1]);
       }
 
       assertEquals(
@@ -112,7 +112,7 @@ public class GetCommandTest {
   /** Verify non string type is formatted into string */
   @Test
   public void testExecuteWithNonStringType() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", new Integer(10), false, "");
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", Integer.valueOf(10), false, "");
   }
 
   @Test
