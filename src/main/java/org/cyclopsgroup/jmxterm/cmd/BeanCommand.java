@@ -54,8 +54,7 @@ public class BeanCommand extends Command {
         ObjectName name = new ObjectName(bean);
         con.getMBeanInfo(name);
         return bean;
-      } catch (MalformedObjectNameException e) {
-      } catch (InstanceNotFoundException e) {
+      } catch (MalformedObjectNameException | InstanceNotFoundException e) {
       }
     }
 
@@ -68,8 +67,7 @@ public class BeanCommand extends Command {
       ObjectName name = new ObjectName(domainName + ":" + bean);
       con.getMBeanInfo(name);
       return domainName + ":" + bean;
-    } catch (MalformedObjectNameException e) {
-    } catch (InstanceNotFoundException e) {
+    } catch (MalformedObjectNameException | InstanceNotFoundException e) {
     }
     throw new IllegalArgumentException("Bean name " + bean + " isn't valid");
   }
