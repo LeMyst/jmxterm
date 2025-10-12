@@ -1,8 +1,8 @@
 package org.cyclopsgroup.jmxterm.cc;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
+
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.jline.CliCompletor;
@@ -30,12 +30,10 @@ public class ConsoleCompletor implements Completer {
   public ConsoleCompletor(CommandCenter commandCenter) {
     Validate.notNull(commandCenter, "Command center can't be NULL");
     this.commandCenter = commandCenter;
-    List<String> commandNames = new ArrayList<>(commandCenter.getCommandNames());
-    Collections.sort(commandNames);
-    this.commandNames = new ArrayList<>(commandNames.size());
-    for (String commandName : commandNames) {
-      this.commandNames.add(new Candidate(commandName));
-    }
+    this.commandNames = commandCenter.getCommandNames().stream()
+        .sorted()
+        .map(Candidate::new)
+        .toList();
   }
 
   @Override

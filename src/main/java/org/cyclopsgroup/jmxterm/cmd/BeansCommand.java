@@ -2,11 +2,11 @@ package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Set;
+
 import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
+
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
@@ -34,18 +34,13 @@ public class BeansCommand extends Command {
    */
   public static List<String> getBeans(Session session, String domainName)
       throws MalformedObjectNameException, IOException {
-    ObjectName queryName = null;
-    if (domainName != null) {
-      queryName = new ObjectName(domainName + ":*");
-    }
-    Set<ObjectName> names =
-        session.getConnection().getServerConnection().queryNames(queryName, null);
-    List<String> results = new ArrayList<>(names.size());
-    for (ObjectName name : names) {
-      results.add(name.getCanonicalName());
-    }
-    Collections.sort(results);
-    return results;
+    ObjectName queryName = domainName == null ?  null : new ObjectName(domainName + ":*");
+    return session.getConnection()
+        .getServerConnection()
+        .queryNames(queryName, null).stream()
+        .map(ObjectName::getCanonicalName)
+        .sorted()
+        .toList();
   }
 
   private String domain;
