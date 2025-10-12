@@ -6,9 +6,10 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.management.remote.JMXConnector;
 import javax.rmi.ssl.SslRMIClientSocketFactory;
-import org.apache.commons.lang3.StringUtils;
+
 import org.cyclopsgroup.jcli.ArgumentProcessor;
 import org.cyclopsgroup.jcli.GnuParser;
 import org.cyclopsgroup.jmxterm.SyntaxUtils;
@@ -66,7 +67,7 @@ public class CliMain {
     }
 
     CommandOutput output;
-    if (StringUtils.equals(options.getOutput(), CliMainOptions.STDOUT)) {
+    if (CliMainOptions.STDOUT.equals(options.getOutput())) {
       output = new PrintStreamCommandOutput(System.out, System.err);
     } else {
       File outputFile = new File(options.getOutput());
@@ -90,14 +91,11 @@ public class CliMain {
           Runtime.getRuntime()
               .addShutdownHook(
                   new Thread(
-                      new Runnable() {
-                        @Override
-                        public void run() {
-                          try {
-                            history.save();
-                          } catch (IOException e) {
-                            System.err.println("Failed to flush command history! " + e);
-                          }
+                      () -> {
+                        try {
+                          history.save();
+                        } catch (IOException e) {
+                          System.err.println("Failed to flush command history! " + e);
                         }
                       }));
           input = new JlineCommandInput(consoleReader, COMMAND_PROMPT);

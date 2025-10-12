@@ -5,13 +5,14 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+
 import javax.management.JMException;
 import javax.management.MBeanInfo;
 import javax.management.MBeanOperationInfo;
 import javax.management.MBeanParameterInfo;
 import javax.management.MBeanServerConnection;
-import javax.management.MalformedObjectNameException;
 import javax.management.ObjectName;
+
 import org.apache.commons.lang3.Validate;
 import org.cyclopsgroup.jcli.annotation.Argument;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -65,7 +66,7 @@ public class RunCommand extends Command {
   }
 
   @Override
-  public void execute() throws MalformedObjectNameException, IOException, JMException {
+  public void execute() throws IOException, JMException {
     Session session = getSession();
     String beanName = BeanCommand.getBeanName(bean, domain, session);
     if (beanName == null) {

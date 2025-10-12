@@ -48,7 +48,7 @@ public class CommandCenterTest {
    * @throws IOException
    */
   @Before
-  public void setUp() throws IOException {
+  public void setUp() {
     executedCommands = new ArrayList<>();
     output = new StringWriter();
 

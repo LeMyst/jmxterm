@@ -18,6 +18,7 @@ import javax.management.MBeanServerConnection;
 import javax.management.ObjectName;
 
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.Validate;
 import org.apache.commons.lang3.builder.CompareToBuilder;
 import org.cyclopsgroup.jcli.annotation.Cli;
@@ -144,7 +145,7 @@ public class InfoCommand extends Command {
     boolean found = false;
     for (MBeanOperationInfo op : operationInfos) {
       String opName = op.getName();
-      if (StringUtils.equals(opName, operation)) {
+      if (Strings.CS.equals(opName, operation)) {
         found = true;
         MBeanParameterInfo[] paramInfos = op.getSignature();
         List<String> paramTypes = new ArrayList<>(paramInfos.length);

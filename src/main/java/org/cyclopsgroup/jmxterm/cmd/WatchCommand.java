@@ -126,13 +126,11 @@ public class WatchCommand extends Command {
 
     final ScheduledExecutorService executor = Executors.newSingleThreadScheduledExecutor();
     executor.scheduleWithFixedDelay(
-        new Runnable() {
-          public void run() {
-            try {
-              printValues(name, con, output);
-            } catch (IOException e) {
-              getSession().output.printError(e);
-            }
+        () -> {
+          try {
+            printValues(name, con, output);
+          } catch (IOException e) {
+            getSession().output.printError(e);
           }
         },
         0,
@@ -140,11 +138,7 @@ public class WatchCommand extends Command {
         TimeUnit.SECONDS);
     if (stopAfter > 0) {
       executor.schedule(
-          new Runnable() {
-            public void run() {
-              executor.shutdownNow();
-            }
-          },
+          (Runnable) executor::shutdownNow,
           stopAfter,
           TimeUnit.SECONDS);
     }

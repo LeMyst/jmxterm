@@ -7,6 +7,7 @@ import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
@@ -16,6 +17,7 @@ import javax.management.openmbean.CompositeDataSupport;
 import javax.management.openmbean.CompositeType;
 import javax.management.openmbean.OpenDataException;
 import javax.management.openmbean.SimpleType;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
@@ -61,7 +63,7 @@ public class GetCommandTest {
           new Expectations() {
             {
               oneOf(con).getDomains();
-              will(returnValue(new String[] {domain, RandomStringUtils.randomAlphabetic(5)}));
+              will(returnValue(new String[] {domain, RandomStringUtils.secure().nextAlphabetic(5)}));
               allowing(con).getMBeanInfo(new ObjectName(expectedBean));
               will(returnValue(beanInfo));
               oneOf(beanInfo).getAttributes();

@@ -3,7 +3,13 @@ package org.cyclopsgroup.jmxterm.cmd;
 import java.io.IOException;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
-import javax.management.*;
+
+import javax.management.JMException;
+import javax.management.MBeanServerConnection;
+import javax.management.Notification;
+import javax.management.NotificationListener;
+import javax.management.ObjectName;
+
 import org.cyclopsgroup.jcli.annotation.Cli;
 import org.cyclopsgroup.jcli.annotation.Option;
 import org.cyclopsgroup.jmxterm.Command;
@@ -51,7 +57,7 @@ public class SubscribeCommand extends Command {
   private String domain;
 
   @Override
-  public void execute() throws MalformedObjectNameException, IOException, JMException {
+  public void execute() throws IOException, JMException {
     Session session = getSession();
     String beanName = BeanCommand.getBeanName(bean, domain, session);
     if (beanName == null) {

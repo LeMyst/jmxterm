@@ -6,6 +6,7 @@ import java.io.InputStreamReader;
 import java.io.Reader;
 import java.net.URL;
 import java.util.Enumeration;
+
 import org.apache.commons.configuration2.Configuration;
 import org.apache.commons.configuration2.PropertiesConfiguration;
 import org.apache.commons.configuration2.convert.DefaultListDelimiterHandler;
@@ -33,13 +34,10 @@ public final class ConfigurationUtils {
     Enumeration<URL> resources = classLoader.getResources(resourcePath);
     while (resources.hasMoreElements()) {
       InputStream resource = resources.nextElement().openStream();
-      Reader reader = new InputStreamReader(resource);
-      try {
+      try (Reader reader = new InputStreamReader(resource)){
         props.read(reader);
       } catch (ConfigurationException e) {
         throw new IOException(e);
-      } finally {
-        reader.close();
       }
     }
     return props;
