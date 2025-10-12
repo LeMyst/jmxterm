@@ -17,7 +17,7 @@ import org.apache.commons.lang3.Validate;
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class ConfigurationUtils {
+public final class ConfigurationUtils {
   /**
    * @param resourcePath Path of overlapping properties files
    * @param classLoader Class loader where the resources are loaded

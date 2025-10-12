@@ -55,7 +55,7 @@ public class RunCommand extends Command {
               .getServerConnection()
               .getMBeanInfo(new ObjectName(session.getBean()));
       MBeanOperationInfo[] operationInfos = info.getOperations();
-      List<String> ops = new ArrayList<String>(operationInfos.length);
+      List<String> ops = new ArrayList<>(operationInfos.length);
       for (MBeanOperationInfo op : operationInfos) {
         ops.add(op.getName());
       }
@@ -73,7 +73,7 @@ public class RunCommand extends Command {
           "Please specify MBean to invoke either using -b option or bean command");
     }
 
-    Validate.isTrue(parameters.size() > 0, "At least one parameter is needed");
+    Validate.isTrue(!parameters.isEmpty(), "At least one parameter is needed");
     String[] paramTypes = null;
     if (types != null) {
       paramTypes = types.split(",");
@@ -102,7 +102,7 @@ public class RunCommand extends Command {
           // String type is treated specially
           // type "string" implies type "java.lang.String"
           if (paramInfos[i].getType().equals(String.class.getName())
-              && paramTypes[i].equals("string")) {
+              && "string".equals(paramTypes[i])) {
             continue;
           }
           if (!paramTypes[i].equals(paramInfos[i].getType())) {

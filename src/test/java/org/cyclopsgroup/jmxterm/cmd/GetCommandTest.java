@@ -127,7 +127,7 @@ public class GetCommandTest {
    */
   @Test
   public void testExecuteWithStrangeAttributeName() throws OpenDataException {
-    final Map<String, Object> entries = new HashMap<String, Object>();
+    final Map<String, Object> entries = new HashMap<>();
     entries.put("d", "bingo");
     final CompositeType compositeType = context.mock(CompositeType.class);
     context.checking(

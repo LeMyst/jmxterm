@@ -33,13 +33,13 @@ import org.cyclopsgroup.jmxterm.io.ValueOutputFormat;
     description = "Get value of MBean attribute(s)",
     note = "* stands for all attributes. eg. get Attribute1 Attribute2 or get *")
 public class GetCommand extends Command {
-  private List<String> attributes = new ArrayList<String>();
+  private List<String> attributes = new ArrayList<>();
 
   private String bean;
 
   private String domain;
 
-  private boolean singleLine = false;
+  private boolean singleLine;
 
   private String delimiter = "";
 
@@ -128,7 +128,7 @@ public class GetCommand extends Command {
       MBeanServerConnection con = getSession().getConnection().getServerConnection();
       MBeanAttributeInfo[] ais =
           con.getMBeanInfo(new ObjectName(getSession().getBean())).getAttributes();
-      List<String> results = new ArrayList<String>(ais.length);
+      List<String> results = new ArrayList<>(ais.length);
       for (MBeanAttributeInfo ai : ais) {
         results.add(ai.getName());
       }
@@ -139,9 +139,9 @@ public class GetCommand extends Command {
 
   @Override
   protected List<String> doSuggestOption(String optionName) throws JMException {
-    if (optionName.equals("d")) {
+    if ("d".equals(optionName)) {
       return DomainsCommand.getCandidateDomains(getSession());
-    } else if (optionName.equals("b")) {
+    } else if ("b".equals(optionName)) {
       return BeanCommand.getCandidateBeanNames(getSession());
     } else {
       return null;

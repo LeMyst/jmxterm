@@ -30,7 +30,7 @@ public class DomainsCommand extends Command {
     } catch (IOException e) {
       throw new RuntimeIOException("Couldn't get candate domains", e);
     }
-    List<String> result = new ArrayList<String>(Arrays.asList(domains));
+    List<String> result = new ArrayList<>(Arrays.asList(domains));
     Collections.sort(result);
     return result;
   }

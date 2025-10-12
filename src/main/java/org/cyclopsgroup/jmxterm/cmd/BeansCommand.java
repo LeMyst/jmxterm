@@ -40,7 +40,7 @@ public class BeansCommand extends Command {
     }
     Set<ObjectName> names =
         session.getConnection().getServerConnection().queryNames(queryName, null);
-    List<String> results = new ArrayList<String>(names.size());
+    List<String> results = new ArrayList<>(names.size());
     for (ObjectName name : names) {
       results.add(name.getCanonicalName());
     }
@@ -52,7 +52,7 @@ public class BeansCommand extends Command {
 
   @Override
   public List<String> doSuggestOption(String optionName) throws IOException {
-    if (optionName.equals("d")) {
+    if ("d".equals(optionName)) {
       return DomainsCommand.getCandidateDomains(getSession());
     }
     return null;
@@ -62,7 +62,7 @@ public class BeansCommand extends Command {
   public void execute() throws MalformedObjectNameException, IOException {
     Session session = getSession();
     String domainName = DomainCommand.getDomainName(domain, session);
-    List<String> domains = new ArrayList<String>();
+    List<String> domains = new ArrayList<>();
     if (domainName == null) {
       domains.addAll(DomainsCommand.getCandidateDomains(session));
     } else {

@@ -37,7 +37,7 @@ public class CliMain {
 
   private static final String COMMAND_PROMPT = "$> ";
 
-  public static final void main(String[] args) throws Exception {
+  public static void main(String[] args) throws Exception {
     System.exit(new CliMain().execute(args));
   }
 
@@ -74,7 +74,7 @@ public class CliMain {
     }
     try {
       CommandInput input;
-      if (options.getInput().equals(CliMainOptions.STDIN)) {
+      if (CliMainOptions.STDIN.equals(options.getInput())) {
         if (options.isNonInteractive()) {
           input = new InputStreamCommandInput(System.in);
         } else {

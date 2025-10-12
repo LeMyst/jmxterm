@@ -118,7 +118,7 @@ public class CommandCenter {
     }
 
     // Take the first argument out since it's command name
-    final List<String> args = new ArrayList<String>();
+    final List<String> args = new ArrayList<>();
     argTokenizer.parse(
         command,
         new TokenEventHandler() {

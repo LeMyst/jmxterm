@@ -26,13 +26,13 @@ import org.cyclopsgroup.jmxterm.io.RuntimeIOException;
 public class HelpCommand extends Command {
   private List<String> argNames = Collections.emptyList();
 
-  private CommandCenter commandCenter = null;
+  private CommandCenter commandCenter;
 
   @Override
   public void execute() {
     Validate.notNull(commandCenter, "Command center hasn't been set yet");
     if (argNames.isEmpty()) {
-      List<String> commandNames = new ArrayList<String>(commandCenter.getCommandNames());
+      List<String> commandNames = new ArrayList<>(commandCenter.getCommandNames());
       Collections.sort(commandNames);
       getSession().output.printMessage("following commands are available to use:");
       for (String commandName : commandNames) {

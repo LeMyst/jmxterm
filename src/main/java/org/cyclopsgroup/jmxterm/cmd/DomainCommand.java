@@ -39,7 +39,7 @@ public class DomainCommand extends Command {
     if (SyntaxUtils.isNull(domain)) {
       return null;
     }
-    HashSet<String> domains = new HashSet<String>(DomainsCommand.getCandidateDomains(session));
+    HashSet<String> domains = new HashSet<>(DomainsCommand.getCandidateDomains(session));
     if (!domains.contains(domain)) {
       throw new IllegalArgumentException(
           "Domain " + domain + " doesn't exist, check your spelling");

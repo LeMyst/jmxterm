@@ -2,11 +2,10 @@ package org.cyclopsgroup.jmxterm.cmd;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 import java.util.regex.Pattern;
+import java.util.stream.Stream;
 
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
@@ -66,10 +65,9 @@ public class InfoCommand extends Command {
     }
     int index = 0;
     session.output.println(TEXT_ATTRIBUTES);
-    List<MBeanAttributeInfo> infos = new ArrayList<MBeanAttributeInfo>(Arrays.asList(attrInfos));
-    Collections.sort(infos, INFO_COMPARATOR);
+    List<MBeanAttributeInfo> infos = Stream.of(attrInfos).sorted(INFO_COMPARATOR).toList();
     for (MBeanAttributeInfo attr : infos) {
-      String rw = "" + (attr.isReadable() ? "r" : "") + (attr.isWritable() ? "w" : "");
+      String rw = (attr.isReadable() ? "r" : "") + (attr.isWritable() ? "w" : "");
       session.output.println(
           String.format(
               "  %%%-3d - %s (%s, %s)" + (showDescription ? ", %s" : ""),
@@ -108,15 +106,13 @@ public class InfoCommand extends Command {
       session.output.printMessage("there's no operations");
       return;
     }
-    List<MBeanOperationInfo> operations =
-        new ArrayList<MBeanOperationInfo>(Arrays.asList(operationInfos));
-    Collections.sort(operations, INFO_COMPARATOR);
+    List<MBeanOperationInfo> operations = Stream.of(operationInfos).sorted(INFO_COMPARATOR).toList();
     session.output.println(TEXT_OPERATIONS);
     int index = 0;
     for (MBeanOperationInfo op : operations) {
       MBeanParameterInfo[] paramInfos = op.getSignature();
-      List<String> paramTypes = new ArrayList<String>(paramInfos.length);
-      List<String> paramDescriptions = new ArrayList<String>(paramInfos.length);
+      List<String> paramTypes = new ArrayList<>(paramInfos.length);
+      List<String> paramDescriptions = new ArrayList<>(paramInfos.length);
       for (MBeanParameterInfo paramInfo : paramInfos) {
         paramTypes.add(paramInfo.getType() + " " + paramInfo.getName());
         paramDescriptions.add("       " + paramInfo.getName() + ": " + paramInfo.getDescription());
@@ -151,13 +147,12 @@ public class InfoCommand extends Command {
       if (StringUtils.equals(opName, operation)) {
         found = true;
         MBeanParameterInfo[] paramInfos = op.getSignature();
-        List<String> paramTypes = new ArrayList<String>(paramInfos.length);
+        List<String> paramTypes = new ArrayList<>(paramInfos.length);
         StringBuilder paramsDesc =
             new StringBuilder("             parameters:" + System.lineSeparator());
         for (MBeanParameterInfo paramInfo : paramInfos) {
           String parameter = paramInfo.getName();
-          paramsDesc.append(
-              String.format(
+          paramsDesc.append(String.format(
                   "                 + %-20s : %s" + System.lineSeparator(),
                   parameter,
                   paramInfo.getDescription()));

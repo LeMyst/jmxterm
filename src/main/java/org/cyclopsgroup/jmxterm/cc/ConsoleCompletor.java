@@ -30,9 +30,9 @@ public class ConsoleCompletor implements Completer {
   public ConsoleCompletor(CommandCenter commandCenter) {
     Validate.notNull(commandCenter, "Command center can't be NULL");
     this.commandCenter = commandCenter;
-    List<String> commandNames = new ArrayList<String>(commandCenter.getCommandNames());
+    List<String> commandNames = new ArrayList<>(commandCenter.getCommandNames());
     Collections.sort(commandNames);
-    this.commandNames = new ArrayList<Candidate>(commandNames.size());
+    this.commandNames = new ArrayList<>(commandNames.size());
     for (String commandName : commandNames) {
       this.commandNames.add(new Candidate(commandName));
     }
@@ -76,7 +76,7 @@ public class ConsoleCompletor implements Completer {
       candidates.addAll(commandNames);
     } else if (buf.indexOf(' ') == -1) {
       // Partial one word
-      List<Candidate> matchedNames = new ArrayList<Candidate>();
+      List<Candidate> matchedNames = new ArrayList<>();
       for (Candidate commandName : commandNames) {
         if (commandName.value().startsWith(buf)) {
           matchedNames.add(commandName);

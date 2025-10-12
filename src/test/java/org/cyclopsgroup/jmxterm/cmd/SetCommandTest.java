@@ -50,7 +50,7 @@ public class SetCommandTest {
     final MBeanServerConnection con = context.mock(MBeanServerConnection.class);
     final MBeanInfo beanInfo = context.mock(MBeanInfo.class);
     final MBeanAttributeInfo attributeInfo = context.mock(MBeanAttributeInfo.class);
-    final AtomicReference<Attribute> setAttribute = new AtomicReference<Attribute>();
+    final AtomicReference<Attribute> setAttribute = new AtomicReference<>();
     try {
       context.checking(
           new Expectations() {

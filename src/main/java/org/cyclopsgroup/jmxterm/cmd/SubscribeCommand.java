@@ -22,7 +22,7 @@ import org.cyclopsgroup.jmxterm.Session;
     note = "Syntax is \n subscribe <bean>")
 public class SubscribeCommand extends Command {
   private static Map<ObjectName, NotificationListener> listeners =
-      new ConcurrentHashMap<ObjectName, NotificationListener>();
+      new ConcurrentHashMap<>();
 
   public static Map<ObjectName, NotificationListener> getListeners() {
     return listeners;
