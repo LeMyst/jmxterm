@@ -100,3 +100,28 @@ jobs:
           name: Nightly v${{ env.nightly_version }}
           prerelease: true
           body: ${{ steps.changelog.outputs.changes }}
+
+      - name: 🧹 Cleanup old nightly prereleases (keep last 10)
+        if: env.changes == 'true'
+        run: |
+          set -euo pipefail
+          owner_repo="$GITHUB_REPOSITORY"
+          keep=10
+          token="${{ secrets.GITHUB_TOKEN }}"
+          # Fetch up to 100 releases (adjust pagination if you have >100 releases)
+          releases=$(curl -s -H "Authorization: token $token" "https://api.github.com/repos/$owner_repo/releases?per_page=100")
+          # Select prereleases whose name starts with "Nightly ", sort newest first, skip the first $keep, and output id + tag
+          to_delete=$(echo "$releases" | jq -r '[.[] | select(.prerelease==true and (.name|startswith("Nightly "))) ] | sort_by(.created_at) | reverse | .['"$keep"':] | .[] | "\(.id) \(.tag_name)"')
+          if [ -z "$to_delete" ]; then
+            echo "No old nightly prereleases to delete"
+            exit 0
+          fi
+          echo "Old nightly prereleases to delete:"
+          echo "$to_delete"
+          echo "$to_delete" | while read -r id tag; do
+            echo "Deleting release id=$id tag=$tag"
+            curl -s -X DELETE -H "Authorization: token $token" "https://api.github.com/repos/$owner_repo/releases/$id"
+            # Try to delete the git tag ref as well (may fail if tag already removed)
+            echo "Deleting tag ref refs/tags/$tag (if exists)"
+            curl -s -X DELETE -H "Authorization: token $token" "https://api.github.com/repos/$owner_repo/git/refs/tags/$tag" || true
+          done
