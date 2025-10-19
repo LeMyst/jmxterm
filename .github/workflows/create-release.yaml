@@ -32,7 +32,7 @@ jobs:
           GITHUB_REF_NAME: ${{ github.ref_name }}
 
       - name: 🛠 Build with Maven for Java ${{ matrix.java }}
-        run: mvn -B package --file pom.xml -Dproject.build.finalName=jmxterm-${{ env.RELEASE_VERSION }}-java${{ matrix.java }}
+        run: mvn -B package --file pom.xml -Ddist.finalName=jmxterm-${{ env.RELEASE_VERSION }}-java${{ matrix.java }}
 
       - name: Debug list target directory
         run: ls -la target || true
