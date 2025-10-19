@@ -45,6 +45,8 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 
+    <dist.finalName>${project.artifactId}-${project.version}</dist.finalName>
+
     <!-- Third-party dependencies -->
     <slf4j.version>2.0.17</slf4j.version>
     <commons-beanutils.version>1.11.0</commons-beanutils.version>
@@ -198,6 +200,7 @@
   </repositories>
 
   <build>
+    <finalName>${dist.finalName}</finalName>
     <pluginManagement>
       <plugins>
         <plugin>
@@ -268,7 +271,7 @@
             </goals>
             <phase>prepare-package</phase>
             <configuration>
-              <finalName>${project.build.finalName}-uber</finalName>
+              <finalName>${dist.finalName}-uber</finalName>
               <appendAssemblyId>false</appendAssemblyId>
               <descriptorRefs>
                 <descriptorRef>jar-with-dependencies</descriptorRef>
@@ -312,7 +315,7 @@
               <directory>/usr/share/jmxterm</directory>
               <sources>
                 <source>
-                  <location>target/${project.build.finalName}-uber.jar</location>
+                  <location>target/${dist.finalName}-uber.jar</location>
                   <destination>jmxterm-uber.jar</destination>
                 </source>
               </sources>
@@ -347,7 +350,7 @@
               <dataSet>
                 <data>
                   <type>file</type>
-                  <src>target/${project.build.finalName}-uber.jar</src>
+                    <src>target/${dist.finalName}-uber.jar</src>
                   <dst>/usr/share/jmxterm/jmxterm-uber.jar</dst>
                   <mapper>
                     <type>perm</type>
