@@ -38,7 +38,7 @@ jobs:
         run: ls -la target || true
 
       - name: 📦 Upload artifact
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: jmxterm-java${{ matrix.java }}
           path: target/jmxterm-${{ env.RELEASE_VERSION }}-java${{ matrix.java }}*.jar
