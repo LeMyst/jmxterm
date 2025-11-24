@@ -50,10 +50,10 @@
     <!-- Third-party dependencies -->
     <slf4j.version>2.0.17</slf4j.version>
     <commons-beanutils.version>1.11.0</commons-beanutils.version>
-    <commons-io.version>2.20.0</commons-io.version>
+    <commons-io.version>2.21.0</commons-io.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
     <commons-configuration2.version>2.12.0</commons-configuration2.version>
-    <commons-lang3.version>3.19.0</commons-lang3.version>
+    <commons-lang3.version>3.20.0</commons-lang3.version>
     <commons-text.version>1.14.0</commons-text.version>
     <jcli.version>1.0.1</jcli.version>
     <jline.version>3.30.6</jline.version>
@@ -61,7 +61,7 @@
 
     <!-- Test dependencies -->
     <jmock.version>2.13.1</jmock.version>
-    <byte-buddy.version>1.17.8</byte-buddy.version>
+    <byte-buddy.version>1.18.1</byte-buddy.version>
     <junit.version>6.0.1</junit.version>
 
     <!-- Plugins -->
@@ -71,7 +71,7 @@
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <maven-assembly-plugin.version>3.7.1</maven-assembly-plugin.version>
     <maven-compiler-plugin.version>3.14.1</maven-compiler-plugin.version>
-    <maven-jar-plugin.version>3.4.2</maven-jar-plugin.version>
+    <maven-jar-plugin.version>3.5.0</maven-jar-plugin.version>
     <maven-javadoc-plugin.version>3.12.0</maven-javadoc-plugin.version>
     <maven-source-plugin.version>3.3.1</maven-source-plugin.version>
     <maven-surefire-plugin.version>3.5.4</maven-surefire-plugin.version>
