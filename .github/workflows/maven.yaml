@@ -86,7 +86,7 @@ jobs:
         uses: advanced-security/maven-dependency-submission-action@v5
 
       - name: Upload Artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: release-artifacts
           path: |
