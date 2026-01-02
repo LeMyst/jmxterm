@@ -3,11 +3,14 @@ package org.cyclopsgroup.jmxterm;
 import java.io.IOException;
 import java.io.PrintStream;
 import java.util.regex.Pattern;
+
 import javax.management.remote.JMXServiceURL;
+
 import org.apache.commons.beanutils.ConvertUtils;
 import org.apache.commons.io.output.NullOutputStream;
 import org.apache.commons.lang3.ClassUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.Strings;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.cyclopsgroup.jmxterm.utils.ValueFormat;
 
@@ -35,22 +38,15 @@ public final class SyntaxUtils {
     if (StringUtils.isEmpty(url)) {
       throw new IllegalArgumentException("Empty URL is not allowed");
     } else if (NumberUtils.isDigits(url) && jpm != null) {
-      Integer pid = Integer.parseInt(url);
-      JavaProcess p;
-
-      p = jpm.get(pid);
+      int pid = Integer.parseInt(url);
+      JavaProcess p = jpm.get(pid);
       if (p == null) {
         throw new NullPointerException("No such PID " + pid);
       }
       if (!p.isManageable()) {
         p.startManagementAgent();
         if (!p.isManageable()) {
-          throw new IllegalStateException(
-              "Managed agent for PID "
-                  + pid
-                  + " couldn't start. PID "
-                  + pid
-                  + " is not manageable");
+          throw new IllegalStateException("Managed agent for PID " + pid + " couldn't start. PID " + pid + " is not manageable");
         }
       }
       return new JMXServiceURL(p.toUrl());
@@ -69,7 +65,7 @@ public final class SyntaxUtils {
    * @return True if value is <code>null</code>
    */
   public static boolean isNull(String s) {
-    return StringUtils.equalsIgnoreCase(NULL, s) || StringUtils.equals("*", s);
+    return Strings.CI.equals(NULL, s) || Strings.CS.equals("*", s);
   }
 
   /**
@@ -80,7 +76,7 @@ public final class SyntaxUtils {
    * @return Object of value
    */
   public static Object parse(String expression, String type) {
-    if (expression == null || StringUtils.equalsIgnoreCase(NULL, expression)) {
+    if (expression == null || Strings.CI.equals(NULL, expression)) {
       return null;
     }
     Class<?> c;

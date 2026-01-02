@@ -1,12 +1,13 @@
 package org.cyclopsgroup.jmxterm.cmd;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.management.JMException;
 import javax.management.MBeanAttributeInfo;
 import javax.management.MBeanInfo;
@@ -16,20 +17,21 @@ import javax.management.openmbean.CompositeDataSupport;
 import javax.management.openmbean.CompositeType;
 import javax.management.openmbean.OpenDataException;
 import javax.management.openmbean.SimpleType;
+
 import org.apache.commons.lang3.RandomStringUtils;
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
-import org.junit.Test;
+import org.jmock.imposters.ByteBuddyClassImposteriser;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case of {@link GetCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class GetCommandTest {
+class GetCommandTest {
   private GetCommand command;
 
   private Mockery context;
@@ -61,7 +63,7 @@ public class GetCommandTest {
           new Expectations() {
             {
               oneOf(con).getDomains();
-              will(returnValue(new String[] {domain, RandomStringUtils.randomAlphabetic(5)}));
+              will(returnValue(new String[] {domain, RandomStringUtils.secure().nextAlphabetic(5)}));
               allowing(con).getMBeanInfo(new ObjectName(expectedBean));
               will(returnValue(beanInfo));
               oneOf(beanInfo).getAttributes();
@@ -80,8 +82,8 @@ public class GetCommandTest {
 
       Object nestedExpectedValue = expectedValue;
 
-      if (expectedValue instanceof CompositeDataSupport) {
-        nestedExpectedValue = ((CompositeDataSupport) expectedValue).get(attributePath[1]);
+      if (expectedValue instanceof CompositeDataSupport support) {
+        nestedExpectedValue = support.get(attributePath[1]);
       }
 
       assertEquals(
@@ -95,28 +97,28 @@ public class GetCommandTest {
   }
 
   /** Set up class to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     command = new GetCommand();
     context = new Mockery();
-    context.setImposteriser(ClassImposteriser.INSTANCE);
+    context.setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
     output = new StringWriter();
   }
 
   /** Test normal execution */
   @Test
-  public void testExecuteNormally() {
+  void executeNormally() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, "");
   }
 
   /** Verify non string type is formatted into string */
   @Test
-  public void testExecuteWithNonStringType() {
-    getAttributeAndVerify("a", "type=x", "a", "a:type=x", new Integer(10), false, "");
+  void executeWithNonStringType() {
+    getAttributeAndVerify("a", "type=x", "a", "a:type=x", Integer.valueOf(10), false, "");
   }
 
   @Test
-  public void testExecuteWithSlashInDomainName() {
+  void executeWithSlashInDomainName() {
     getAttributeAndVerify("a/b", "type=c", "a", "a/b:type=c", "bingo", false, "");
   }
 
@@ -126,8 +128,8 @@ public class GetCommandTest {
    * @throws OpenDataException
    */
   @Test
-  public void testExecuteWithStrangeAttributeName() throws OpenDataException {
-    final Map<String, Object> entries = new HashMap<String, Object>();
+  void executeWithStrangeAttributeName() throws Exception {
+    final Map<String, Object> entries = new HashMap<>();
     entries.put("d", "bingo");
     final CompositeType compositeType = context.mock(CompositeType.class);
     context.checking(
@@ -145,19 +147,19 @@ public class GetCommandTest {
 
   /** Verify unusual bean name and domain name is acceptable */
   @Test
-  public void testExecuteWithUnusualDomainAndBeanName() {
+  void executeWithUnusualDomainAndBeanName() {
     getAttributeAndVerify("a-a", "a.b-c_d=x-y.z", "a", "a-a:a.b-c_d=x-y.z", "bingo", false, "");
   }
 
   /** Verify that delimiters are working */
   @Test
-  public void testExecuteWithDelimiters() {
+  void executeWithDelimiters() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", false, ",");
   }
 
   /** Verify that single line output is working */
   @Test
-  public void testExecuteForSingleLineOutput() {
+  void executeForSingleLineOutput() {
     getAttributeAndVerify("a", "type=x", "a", "a:type=x", "bingo", true, "");
   }
 }

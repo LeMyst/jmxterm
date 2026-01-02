@@ -1,26 +1,27 @@
 package org.cyclopsgroup.jmxterm.cc;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.beans.IntrospectionException;
 import java.io.IOException;
 import java.io.StringWriter;
 import java.util.Arrays;
 import java.util.HashSet;
+
 import org.cyclopsgroup.jmxterm.MockSession;
 import org.cyclopsgroup.jmxterm.SelfRecordingCommand;
 import org.jmock.Expectations;
 import org.jmock.Mockery;
-import org.jmock.lib.legacy.ClassImposteriser;
-import org.junit.Before;
-import org.junit.Test;
+import org.jmock.imposters.ByteBuddyClassImposteriser;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 
 /**
  * Test case for {@link HelpCommand}
  *
  * @author <a href="mailto:jiaqi.guo@gmail.com">Jiaqi Guo</a>
  */
-public class HelpCommandTest {
+class HelpCommandTest {
   private HelpCommand command;
 
   private Mockery context;
@@ -28,12 +29,12 @@ public class HelpCommandTest {
   private StringWriter output;
 
   /** Set up objects to test */
-  @Before
-  public void setUp() {
+  @BeforeEach
+  void setUp() {
     command = new HelpCommand();
     output = new StringWriter();
     context = new Mockery();
-    context.setImposteriser(ClassImposteriser.INSTANCE);
+    context.setImposteriser(ByteBuddyClassImposteriser.INSTANCE);
   }
 
   /**
@@ -43,7 +44,7 @@ public class HelpCommandTest {
    * @throws IntrospectionException
    */
   @Test
-  public void testExecuteWithOption() throws IOException, IntrospectionException {
+  void executeWithOption() throws Exception {
     command.setArgNames(Arrays.asList("a", "b"));
     final CommandCenter cc = context.mock(CommandCenter.class);
     command.setCommandCenter(cc);
@@ -68,7 +69,7 @@ public class HelpCommandTest {
    * @throws IOException
    */
   @Test
-  public void testExecuteWithoutOption() throws IOException {
+  void executeWithoutOption() throws Exception {
     final CommandCenter cc = context.mock(CommandCenter.class);
     command.setCommandCenter(cc);
     context.checking(
