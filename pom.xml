@@ -62,7 +62,7 @@
     <!-- Test dependencies -->
     <jmock.version>2.13.1</jmock.version>
     <byte-buddy.version>1.18.4</byte-buddy.version>
-    <junit.version>6.0.2</junit.version>
+    <junit.version>6.0.3</junit.version>
 
     <!-- Plugins -->
     <jdeb.version>1.14</jdeb.version>
