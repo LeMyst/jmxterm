@@ -48,7 +48,7 @@
     <dist.finalName>${project.artifactId}-${project.version}</dist.finalName>
 
     <!-- Third-party dependencies -->
-    <slf4j.version>2.0.17</slf4j.version>
+    <slf4j.version>2.0.18</slf4j.version>
     <commons-beanutils.version>1.11.0</commons-beanutils.version>
     <commons-io.version>2.21.0</commons-io.version>
     <commons-collections4.version>4.5.0</commons-collections4.version>
