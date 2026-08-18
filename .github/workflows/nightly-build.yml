@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: 📦 Checkout Code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: Get latest nightly pre-release commit SHA
         id: get_latest_nightly_commit
