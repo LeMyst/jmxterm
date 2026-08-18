@@ -7,6 +7,18 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "chore(deps): "
+    groups:
+      github-actions-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      github-actions-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
   # Maintain dependencies for Maven
   - package-ecosystem: "maven"
     directory: "/"
@@ -14,6 +26,18 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "chore(deps): "
+    groups:
+      maven-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      maven-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
   # Maintain dependencies for Docker
   - package-ecosystem: "docker"
     directory: "/"
@@ -21,3 +45,15 @@ updates:
       interval: "weekly"
     commit-message:
       prefix: "chore(deps): "
+    groups:
+      docker-minor-patch:
+        patterns:
+          - "*"
+        update-types:
+          - "minor"
+          - "patch"
+      docker-major:
+        patterns:
+          - "*"
+        update-types:
+          - "major"
