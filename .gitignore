@@ -22,3 +22,10 @@ buildNumber.properties
 *.py
 # macOS
 .DS_Store
+
+# Editors / misc (from upstream)
+*.log
+*.tmp
+*~
+*.iml
+.vscode
