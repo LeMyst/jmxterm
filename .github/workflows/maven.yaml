@@ -83,7 +83,7 @@ jobs:
 
       - name: Submit Dependency Snapshot
         if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
-        uses: advanced-security/maven-dependency-submission-action@v5
+        uses: advanced-security/maven-dependency-submission-action@v6
 
       - name: Upload Artifacts
         uses: actions/upload-artifact@v7
