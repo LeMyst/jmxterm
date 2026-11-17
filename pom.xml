@@ -53,10 +53,10 @@
     <commons-io.version>2.22.0</commons-io.version>
     <commons-collections4.version>4.6.0</commons-collections4.version>
     <commons-configuration2.version>2.15.1</commons-configuration2.version>
-    <commons-lang3.version>3.21.0</commons-lang3.version>
+    <commons-lang3.version>3.22.0</commons-lang3.version>
     <commons-text.version>1.15.0</commons-text.version>
     <jcli.version>1.0.2</jcli.version>
-    <jline.version>4.5.0</jline.version>
+    <jline.version>4.7.0</jline.version>
     <guava.version>33.5.0-jre</guava.version>
 
     <!-- Test dependencies -->
@@ -66,7 +66,7 @@
 
     <!-- Plugins -->
     <jdeb.version>1.15</jdeb.version>
-    <rpm-maven-plugin.version>2.4.0</rpm-maven-plugin.version>
+    <rpm-maven-plugin.version>2.5.0</rpm-maven-plugin.version>
     <lifecycle-mapping.version>1.0.0</lifecycle-mapping.version>
     <maven-antrun-plugin.version>3.1.0</maven-antrun-plugin.version>
     <maven-assembly-plugin.version>3.8.0</maven-assembly-plugin.version>
